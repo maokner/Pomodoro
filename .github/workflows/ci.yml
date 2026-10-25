@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    # Swift 6 tools and Swift Testing need Xcode 16 or later, which macos-15 ships by default.
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show Swift version
+        run: swift --version
+      - name: Test
+        run: swift test
+      - name: Build app bundle
+        run: ./scripts/build-app.sh
